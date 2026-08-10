@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="google-site-verification" content="k1qt79ZFjV59eUs24q5_GN1tVOtvvmOxf3K6f8GbrFo">
+    <meta name="google-site-verification" content="k1qt79ZFjV59eUs24q5_GN1tVOtvvmOxf3K6f8GbrFo" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
     <title>Sabuj Disha</title>
@@ -55,7 +55,7 @@
             align-items: center;
         }
 
-        /* Namaskar - Soft, respectful */
+        /* Namaskar - Very soft, respectful, and slightly muted */
         .namaskar-text {
             color: var(--text-namaskar);
             font-family: 'Playfair Display', serif;
@@ -68,11 +68,11 @@
             animation: delicateFade 1.2s ease-out forwards 0.2s;
         }
 
-        /* Welcome Text */
+        /* Welcome Text - Thin, wide letter spacing, very elegant */
         .welcome-text {
             color: var(--text-title);
             font-size: clamp(20px, 5vw, 28px);
-            font-weight: 300;
+            font-weight: 300; /* Minimalist light weight */
             letter-spacing: 4px;
             text-transform: uppercase;
             opacity: 0;
@@ -80,7 +80,7 @@
             animation: delicateFadeTracking 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.8s;
         }
 
-        /* 1px Hairline Loading */
+        /* 1px Hairline Loading - Super minimal and clean */
         .boot-line-container {
             width: 140px; 
             height: 1px;
@@ -99,11 +99,11 @@
             width: 0%;
             transform: translateX(-50%);
             background: var(--accent-mint);
-            box-shadow: 0 0 8px rgba(52, 211, 153, 0.3);
+            box-shadow: 0 0 8px rgba(52, 211, 153, 0.3); /* Very subtle glow */
             transition: width 0.3s ease-out;
         }
 
-        /* Keyframes */
+        /* --- Minimalist Keyframes --- */
         @keyframes delicateFade {
             from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
@@ -113,7 +113,7 @@
             from { 
                 opacity: 0; 
                 transform: translateY(8px);
-                letter-spacing: 1px;
+                letter-spacing: 1px; /* Starts tight, expands elegantly */
             }
             to { 
                 opacity: 1; 
@@ -141,7 +141,7 @@
             height: 100%;
             border: none;
             opacity: 0;
-            transition: opacity 1.5s ease-out;
+            transition: opacity 1.5s ease-out; /* Very slow, calming transition to the app */
         }
 
         #app-container.loaded {
@@ -151,6 +151,10 @@
 </head>
 <body>
 
+    <!-- Intro Audio File  
+    <audio id="intro-audio" src="sabuj.mp3" preload="auto"></audio>
+     -->
+     
     <!-- Zen Minimalist Intro Screen -->
     <div id="intro-screen">
         <div class="intro-container">
@@ -176,9 +180,11 @@
         const iframe = document.getElementById('app-container');
         const introScreen = document.getElementById('intro-screen');
         const bootLine = document.getElementById('boot-line');
+        const introAudio = document.getElementById('intro-audio');
 
         let progress = 0;
 
+        // Elegant, slow loading progression
         const lineInterval = setInterval(() => {
             if (progress < 90) {
                 progress += (Math.random() * 10) + 2; 
@@ -191,16 +197,28 @@
             clearInterval(lineInterval);
             bootLine.style.width = '100%';
 
+            // Smooth dissolve timing
             setTimeout(() => {
                 iframe.classList.add('loaded');
                 introScreen.classList.add('dissolve');
             }, 500);
         }
 
+        // Wait for iframe to load, then trigger calm transition
         iframe.onload = function() {
+            try {
+                introAudio.volume = 0.5; // Very soft volume for a calming entry
+                let playPromise = introAudio.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log("Audio waiting for user interaction.");
+                    });
+                }
+            } catch(e) {}
+
             setTimeout(() => {
                 launchApp();
-            }, 1800);
+            }, 1800); // Wait just a little longer to let the user enjoy the peace
         };
     </script>
 
